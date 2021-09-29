@@ -1,21 +1,31 @@
 import Articles from "./Articles.js";
 import FetchData from "./FetchData.js";
+import Header from "./Header.js";
+import Pagination from "./Pagination.js";
 
-const main = document.querySelector("main");
+const mainHeader = document.querySelector('.main-header')
 
-
+let data = {
+  response: {
+    docs: []
+  }
+};
 let fetchData = new FetchData();
-let data = await fetchData.init();
+let dataFetched = await fetchData.init();
 
+for(let i = 0; i < dataFetched.length; i++) {
+  data.response.docs.push(...dataFetched[i].response.docs)
+}
 
+let header = new Header({
+  data
+});
 let articles = new Articles({
   data
 });
 
-console.log(articles.articles);
+mainHeader.insertAdjacentHTML('afterbegin', header.init());
+let pagination = new Pagination({ data: articles.articles } );
+pagination.init();
 
-articles.articles.forEach(newArticle => {
-
-  main.insertAdjacentHTML('afterbegin', newArticle);
-})
 
