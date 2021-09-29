@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.html {
+  font-size: 10px; 
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #eee;
+}
+
+.main-header {
+  height: 20vh;
+  background-color: #aaa;
+}
+
+.article {
+  width: 85vw;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: left;
+  flex-wrap: wrap;
+  margin: 1rem auto;
+  box-shadow: 0 0 .5rem rgba(0,0,0,0.7), 0 0 1rem rgba(0,0,0,0.3);
+  background-color: #161B22;
+  color: #fff;
+}
+
+.article-img-wrap {
+  position: relative;
+  width: 7.5rem;
+  height: 7.5rem;
+  overflow: hidden;
+}
+
+.article-img-wrap img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  max-width: 100%;
+  max-height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.article-text {
+  width: calc(100% - 7.5rem);
+  text-align: center;
+  padding: 1rem;
+}
+
+.article-header {
+  display: block;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.article-description {
+  font-size: .9rem;
+}
+
+.article-date {
+  text-align: right;
+  font-size: .7rem;
+}
