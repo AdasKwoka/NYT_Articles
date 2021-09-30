@@ -1,5 +1,5 @@
 class FetchData {
-  subjects = ["elections", "rainbow", "elephant"];
+  subjects = ["elections", "lion", "elephant"];
   async fetchData(url) {
     try {
       let resolvesArr = [];

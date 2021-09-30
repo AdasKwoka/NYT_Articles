@@ -16,39 +16,109 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #eee;
+  overflow: hidden;
 }
 
 .main-header {
-  height: 20vh;
-  background-color: #aaa;
+  position: relative;
+  height: 70vh;
+  background-image: url('../images/header-small.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.main-header::after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
 }
 
 .header-title {
+  position: relative;
   margin-top: 1rem;
   text-align: center;
+  color: #fff;
+  z-index: 1;
 }
 
 .header-sources {
+  position: relative;
+  margin-top: 1rem;
   text-align: center;
+  color: #fff;
+  z-index: 1;
+}
+
+.nav-pagination {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin-top: 2rem;
+  z-index: 1;
+}
+
+main + .nav-pagination {
+  position: relative;
+}
+
+.btn-prev,
+.btn-next {
+  font-size: .7rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-weight: bold;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  margin: 0 1rem;
+  cursor: pointer;
+  transition: color .2s ease;
+}
+
+main + .nav-pagination .btn-prev,
+main + .nav-pagination .btn-next {
+  border: 1px solid black
+}
+
+.nav-info {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffe4c4;
+}
+
+main + .nav-pagination .nav-info {
+  color: #000;
 }
 
 .article {
-  width: 85vw;
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: left;
-  flex-wrap: wrap;
-  margin: 1rem auto;
-  box-shadow: 0 0 .5rem rgba(0,0,0,0.7), 0 0 1rem rgba(0,0,0,0.3);
   background-color: #161B22;
   color: #fff;
 }
 
+.article:nth-of-type(2n) {
+  background-color: #ffe4c4;
+  color: #000;
+}
+
+.article-text-wrap {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .article-img-wrap {
   position: relative;
-  width: 7.5rem;
-  height: 7.5rem;
+  width: 10rem;
+  height: 10rem;
   overflow: hidden;
 }
 
@@ -62,55 +132,121 @@ body {
 }
 
 .article-text {
-  width: calc(100% - 7.5rem);
-  text-align: center;
+  display: block;
+  width: 100%;
   padding: 1rem;
 }
 
 .article-header {
   display: block;
-  font-size: 1.1rem;
+  word-wrap: break-word;
   text-decoration: none;
+  text-align: center;
   color: #fff;
   font-weight: bold;
   margin-bottom: 1rem;
 }
 
+.article:nth-of-type(2n) .article-header{
+  color: #000;
+}
+
 .article-description {
   font-size: .9rem;
+  margin-bottom: 1rem;
 }
 
 .article-date {
   text-align: right;
   font-size: .7rem;
+  margin-bottom: 1rem;
 }
 
-.nav-pagination {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.btn-prev,
-.btn-next {
-  font-size: 1.3rem;
-  width: 3rem;
-  height: 3rem;
-  font-weight: bold;
-  color: #555;
-  background-color: #fff;
-  border: none;
-  border-radius: 50%;
-  margin: 0 1rem;
+.article-btn {
+  display: block;
+  margin: 0 auto;
+  font-size: .7rem;
+  color: #fff;
+  background-color: #000;
+  border: 0.1rem solid #fff;
+  padding: .7rem 1rem;
   cursor: pointer;
-  transition: color .2s ease;
+  transition: .2s linear;
 }
 
-.btn-prev:hover,
-.btn-next:hover {
-  color: #000;
+.article-additionals {
+  position: relative;
+  display: block;
+  min-height: 50vh;
 }
 
-.nav-info {
-  font-size: 1.2rem;
+.article-additionals:nth-of-type(2n) {
+  color: #fff;
+}
+
+.big-img-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.big-img-wrap::after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.big-img-wrap img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.art-desc {
+  font-size: .9rem;
+  display: block;
+}
+
+.article-author,
+.article-section-name {
+  position: relative;
+  font-size: 1.4rem;
+  text-align: center;
   font-weight: bold;
+  padding-top: 3rem;
+  z-index: 1;
 }
+
+.article-section-name {
+  padding-top: 1rem;
+}
+
+.article-btn.article-close-info {
+  position: relative;
+  margin-top: 2rem;
+  z-index: 1;
+}
+
+.main-footer p{
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  background-color: #000;
+  font-size: .5rem;
+}
+
+.disable {
+  display: none;
+}
+

@@ -1,3 +1,5 @@
+import ShowMore from "./ShowMore.js";
+
 class Pagination {
   constructor({ data }) {
     this.currentPage = 1;
@@ -32,6 +34,8 @@ class Pagination {
 
     this.main.innerHTML = "";
     this.createContent(page);
+
+    ShowMore.addListenersToBtns();
 
     page_span.forEach(span => span.innerHTML = `${this.currentPage == 1 ? 1 : (this.currentPage - 1) * 10} - ${10 * this.currentPage} of ${this.data.length}`);
 

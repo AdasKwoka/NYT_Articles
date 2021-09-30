@@ -6,7 +6,7 @@ class Articles {
   }
 
   createArticles(data) {
-    let articles = data.response.docs.map(doc => {
+    let content = data.response.docs.map(doc => {
       return ({
         section_name: doc.section_name,
         author: doc.byline.person[0]?.firstname || doc.byline.person[0]?.lastname ? 
@@ -21,8 +21,8 @@ class Articles {
       })
     });
 
-    return articles.map(art => {
-      let article = new Article(art);
+    return content.map(info => {
+      let article = new Article(info);
       return article.init();
     })
   }
