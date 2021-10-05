@@ -5,8 +5,6 @@ class Pagination {
     this.currentPage = 1;
     this.recordsPerPage = 10;
     this.data = data;
-    this.btn_prev = document.querySelectorAll('.btn-prev');
-    this.btn_next = document.querySelectorAll('.btn-next');
     this.main = document.querySelector('main');
   }
 
@@ -25,28 +23,32 @@ class Pagination {
   }
 
   changePage(page) {
-    let page_span = document.querySelectorAll('.nav-info');
-
-    this.addListeners();
-   
     if(page < 1) page = 1;
     if(page > this.numPages()) page = this.numPages();
 
     this.main.innerHTML = `
     <h1 class="header-main-articles">Articles</h1>
+    <div class="nav-pagination">
+      <button class="btn-prev">&lt;</button>
+      <span class="nav-info"></span>
+      <button class="btn-next">&gt;</button>
+    </div>
     `;
+
+    let btn_prev = document.querySelectorAll('.btn-prev');
+    let btn_next = document.querySelectorAll('.btn-next');
+    this.addListeners(btn_prev, btn_next);
+
     this.createContent(page);
 
     ShowMore.addListenersToBtns();
 
-    page_span.forEach(span => span.innerHTML = `${this.currentPage == 1 ? 1 : (this.currentPage - 1) * 10} - ${10 * this.currentPage} of ${this.data.length}`);
-
     this.checkVisibility(page);
   }
 
-  addListeners() {
-    this.btn_next.forEach(btn => btn.addEventListener('click', this.nextPage));
-    this.btn_prev.forEach(btn => btn.addEventListener('click', this.prevPage));
+  addListeners(btn_prev, btn_next) {
+    btn_next.forEach(btn => btn.addEventListener('click', this.nextPage));
+    btn_prev.forEach(btn => btn.addEventListener('click', this.prevPage));
   }
 
   checkVisibility(page) {
@@ -55,9 +57,14 @@ class Pagination {
   }
 
   createContent(page) {
+    let page_span = document.querySelectorAll('.nav-info');
+    let header_article = document.querySelector('.header-main-articles');
+
     for(let i = (page - 1) * this.recordsPerPage; i < (page * this.recordsPerPage) && i < this.data.length; i++) {
-      this.main.insertAdjacentHTML("beforeend", this.data[i])
+      header_article.insertAdjacentHTML("afterend", this.data[i])
     }
+    
+    page_span.forEach(span => span.innerHTML = `${this.currentPage == 1 ? 1 : (this.currentPage - 1) * 10} - ${10 * this.currentPage} of ${this.data.length}`);
   }
 
   init() {

@@ -5,7 +5,7 @@ import Header from "./Header.js";
 import Pagination from "./Pagination.js";
 
 
-const mainHeader = document.querySelector('.main-header');
+const mainHeader = document.querySelector('header');
 const mainFooter = document.querySelector('.main-footer');
 
 let data = {
