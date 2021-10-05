@@ -32,7 +32,9 @@ class Pagination {
     if(page < 1) page = 1;
     if(page > this.numPages()) page = this.numPages();
 
-    this.main.innerHTML = "";
+    this.main.innerHTML = `
+    <h1 class="header-main-articles">Articles</h1>
+    `;
     this.createContent(page);
 
     ShowMore.addListenersToBtns();

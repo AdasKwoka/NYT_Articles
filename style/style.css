@@ -9,6 +9,7 @@ body {
 }
 
 .wrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -71,6 +72,7 @@ body {
 
 main {
   max-width: 1450px;
+  flex-grow: 1;
 }
 
 main + .nav-pagination {
@@ -249,8 +251,14 @@ main + .nav-pagination .nav-info {
   z-index: 1;
 }
 
-.main-footer p{
+.main-footer {
+  bottom: 0;
+  left: 0;
   padding: 1rem;
+  background-color: #000;
+}
+
+.main-footer p {
   text-align: center;
   color: #fff;
   background-color: #000;

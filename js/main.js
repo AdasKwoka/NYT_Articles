@@ -35,9 +35,10 @@ let footer = new Footer({
 })
 
 mainHeader.insertAdjacentHTML('afterbegin', header.init());
+mainFooter.insertAdjacentHTML('afterbegin', footer.init());
 let pagination = new Pagination({ data: articles.articles } );
 pagination.init();
 
-mainFooter.insertAdjacentHTML('afterbegin', footer.init());
+
 
 
