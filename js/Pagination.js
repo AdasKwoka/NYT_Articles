@@ -44,14 +44,13 @@ class Pagination {
 
     if(page_count <= this.numberOfPages){
       for(let i = 1; i <= page_count; i++) {
-        let btn = `<button class=${i == this.currentPage ? 'pag-numb active' : 'pag-numb'} data-number="${i}">${i}</button>`;
-
+        let btn = `<button class='pag-numb ${i == this.currentPage ? ' active' : ''}' data-number="${i}">${i}</button>`;
         paginationElement.insertAdjacentHTML('beforebegin', btn);
       }
     } else {
       if(this.currentPage < this.numberOfPages) {
         for(let i = 1; i <= this.numberOfPages; i++) {
-          let btn = `<button class=${i == this.currentPage ? 'pag-numb active' : 'pag-numb'} data-number="${i}">${i}</button>`;
+          let btn = `<button class='pag-numb ${i == this.currentPage ? ' active' : ''}' data-number="${i}">${i}</button>`;
   
           paginationElement.insertAdjacentHTML('beforebegin', btn);
         }
@@ -154,6 +153,7 @@ class Pagination {
         this.displayCurrentNumberOfPages();
         this.paginationNumbers();
         this.paginationArrows();
+        ShowMore.addListenersToBtns();
       })
     })
   }
@@ -172,6 +172,7 @@ class Pagination {
       this.displayCurrentNumberOfPages();
       this.paginationNumbers();
       this.paginationArrows();
+      ShowMore.addListenersToBtns();
     }
   }
 
@@ -182,6 +183,7 @@ class Pagination {
       this.displayCurrentNumberOfPages();
       this.paginationNumbers();
       this.paginationArrows();
+      ShowMore.addListenersToBtns();
     }
   }
 
@@ -191,6 +193,7 @@ class Pagination {
     this.displayCurrentNumberOfPages();
     this.paginationNumbers();
     this.paginationArrows();
+    ShowMore.addListenersToBtns();
   }
 
   numPages() {
