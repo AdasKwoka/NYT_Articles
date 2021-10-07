@@ -12,7 +12,8 @@ class Articles {
         author: doc.byline.person[0]?.firstname || doc.byline.person[0]?.lastname ? 
           `${doc.byline.person[0]?.firstname} ${doc.byline.person[0]?.lastname}` : 
           'Annonymous',
-        title: doc.web_url,
+        title: doc.headline.main,
+        url_website: doc.web_url,
         lead_paragraph: doc.lead_paragraph,
         source: doc.source,
         url_small: doc.multimedia[0] ? "https://www.nytimes.com/" + doc.multimedia[0].url : "./images/default_photo.jpg",

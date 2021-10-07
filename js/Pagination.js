@@ -11,14 +11,15 @@ class Pagination {
 
   displayList() {
     this.main.innerHTML = `
-    <h1 class="header-main-articles">Articles</h1>
+    <h1 class="header-main-articles w-100vw bg-dark text-light text-center py-1">Articles</h1>
+    <div class='articles-wrapper'></div>
     <div class="pagination-element">
     <button class="btn-prev">&lt;</button>
     <button class="btn-next">&gt;</button>
     </div>
     `
 
-    let headerOfArticles = document.querySelector('.header-main-articles');
+    let articlesWrapper = document.querySelector('.articles-wrapper');
     this.currentPage--;
 
     let start = this.recordsPerPage * this.currentPage;
@@ -28,7 +29,7 @@ class Pagination {
     this.currentPage++;
 
     for(let i = 0; i < paginatedItems.length; i++) {
-      headerOfArticles.insertAdjacentHTML("afterend", paginatedItems[i])
+      articlesWrapper.insertAdjacentHTML("afterbegin", paginatedItems[i])
     }
   }
 

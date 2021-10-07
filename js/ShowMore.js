@@ -1,25 +1,16 @@
 class ShowMore {
   static addListenersToBtns() {
-    let showMoreBtns = [...document.getElementsByClassName('article-add-info')];
-    let showLessBtns = [...document.getElementsByClassName('article-close-info')];
-    showMoreBtns.forEach(btn => btn.addEventListener('click', e => toggleAddVisibility(e)))
-    showLessBtns.forEach(btn => btn.addEventListener('click', e => toggleCloseVisibility(e)))
+    let toggleBtns = [...document.getElementsByClassName('article-add-info')];
+    toggleBtns.forEach(btn => btn.addEventListener('click', e => toggleVisibility(e)))
     
 
-    function toggleAddVisibility(e) {
+    function toggleVisibility(e) {
       let index = e.target.parentNode.parentNode.parentNode.dataset.id;
       let article = document.querySelector(`article[data-id='${index}']`);
+      let additionals = article.querySelector('.article-additionals');
+      additionals.classList.toggle('disable');
 
-      article.querySelector('.article-text-wrap').classList.toggle('disable');
-      article.querySelector('.article-additionals').classList.toggle('disable');
-    }
-
-    function toggleCloseVisibility(e) {
-      let index = e.target.parentNode.parentNode.dataset.id;
-      let article = document.querySelector(`article[data-id='${index}']`);
-
-      article.querySelector('.article-text-wrap').classList.toggle('disable');
-      article.querySelector('.article-additionals').classList.toggle('disable');
+      e.target.textContent = !additionals.classList.contains('disable') ? 'Close' : 'Show info'
     }
   }
 }

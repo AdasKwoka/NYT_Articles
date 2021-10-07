@@ -15,8 +15,10 @@ class Header {
 
   init() {
     return `
-      <h1 class="header-title">Sources</h1>
-      <h3 class="header-sources">${this.dataToHeader.sources}</h3>
+      <div class='container'>
+        <h1 class="header-title text-light mt-3 text-center">Sources</h1>
+        <h3 class="header-sources text-light mt-2 text-center">${this.dataToHeader.sources}</h3>
+      </div>
     `
   }
 }
