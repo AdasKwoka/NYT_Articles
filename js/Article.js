@@ -12,7 +12,14 @@ class Article {
   }
 
   createDate() {
-    return `${this.date.toLocaleDateString('en', { weekday: 'long' })}, ${this.date.toLocaleDateString('en', { month: 'long' })} ${this.date.getDate()}, ${this.date.getFullYear()}`;
+    let options = {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    }
+
+    return `${this.date.toLocaleString('en', options)}`;
   }
 
   init() {
