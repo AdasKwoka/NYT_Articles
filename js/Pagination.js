@@ -13,101 +13,87 @@ class Pagination {
 
   paginationNumbers() {
     let paginationElement = document.querySelector('.btn-next');
-    let page_count = this.numberOfPagesToPaginate;
 
-    if(page_count <= this.numberOfPagesToDisplay){
-      for(let i = 1; i <= page_count; i++) {
+    if(this.numberOfPagesToPaginate <= 4) {
+      for(let i = 1; i <= 4; i++) {
         let btn = `<button class='pag-numb ${i == this.currentPage ? ' active' : ''}' data-number="${i}">${i}</button>`;
         paginationElement.insertAdjacentHTML('beforebegin', btn);
       }
     } else {
-      if(this.currentPage < this.numberOfPagesToDisplay) {
-        for(let i = 1; i <= this.numberOfPagesToDisplay; i++) {
+      if(this.currentPage <= 2) {
+        for(let i = 1; i <= 3; i++) {
           let btn = `<button class='pag-numb ${i == this.currentPage ? ' active' : ''}' data-number="${i}">${i}</button>`;
-  
           paginationElement.insertAdjacentHTML('beforebegin', btn);
         }
-        let dots = `<span class='dots'>...</span>`
-        paginationElement.insertAdjacentHTML('beforebegin', dots)
-        let btn = `<button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>`
-        paginationElement.insertAdjacentHTML('beforebegin', btn);
-      } else if (this.currentPage == this.numberOfPagesToDisplay){
-        let beforeElement = this.currentPage - 1;
-        let nextElement = this.currentPage + 1;
-        let firstBtn = `<button class='pag-numb' data-number="1">1</button>`;
-        let lastBtn = `<button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>`;
-        let beforeBtn = `<button class='pag-numb' data-number="${beforeElement}">${beforeElement}</button>`;
-        let currentButton = `<button class='pag-numb active' data-number="${this.currentPage}">${this.currentPage}</button>`;
-        let nextBtn = `<button class='pag-numb' data-number="${nextElement}">${nextElement}</button>`;
-        let dots = `<span class='dots'>...</span>`
-
-        paginationElement.insertAdjacentHTML('beforebegin', firstBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', beforeBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', currentButton);
-        paginationElement.insertAdjacentHTML('beforebegin', nextBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', dots);
-        paginationElement.insertAdjacentHTML('beforebegin', lastBtn);
-      } else if(this.currentPage > this.numberOfPagesToDisplay && this.currentPage < this.numberOfPagesToPaginate) {
-        let beforeElement = this.currentPage - 1;
-        let nextElement = this.currentPage + 1;
-
-        let firstBtn = `<button class='pag-numb' data-number="1">1</button>`;
-        let lastBtn = `<button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>`;
-        let beforeBtn = `<button class='pag-numb' data-number="${beforeElement}">${beforeElement}</button>`;
-        let currentButton = `<button class='pag-numb active' data-number="${this.currentPage}">${this.currentPage}</button>`;
-        let nextBtn = `<button class='pag-numb' data-number="${nextElement}">${nextElement}</button>`;
-        let dots = `<span class='dots'>...</span>`
-
-        if(nextElement < this.numberOfPagesToPaginate && (nextElement + 1) != this.numberOfPagesToPaginate) {
-          paginationElement.insertAdjacentHTML('beforebegin', firstBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', dots);
-          paginationElement.insertAdjacentHTML('beforebegin', beforeBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', currentButton);
-          paginationElement.insertAdjacentHTML('beforebegin', nextBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', dots);
-          paginationElement.insertAdjacentHTML('beforebegin', lastBtn);
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <span class='dots'>...</span>
+          <button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>
+        `)
+      } else if(this.currentPage > this.numberOfPagesToDisplay && this.currentPage < this.numberOfPagesToPaginate - 2) {
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <button class='pag-numb' data-number="${1}">1</button>
+          <span class='dots'>...</span>
+        `);
+        for(let i = -1; i <= 1; i++) {
+          let btn = `<button class='pag-numb' data-number="${this.currentPage + i}">${this.currentPage + i}</button>`;
+          paginationElement.insertAdjacentHTML('beforebegin', btn);
         }
-        if(nextElement == this.numberOfPagesToPaginate) {
-          paginationElement.insertAdjacentHTML('beforebegin', firstBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', dots);
-          paginationElement.insertAdjacentHTML('beforebegin', beforeBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', currentButton);
-          paginationElement.insertAdjacentHTML('beforebegin', lastBtn);
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <span class='dots'>...</span>
+          <button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>
+        `);
+      } else if( this.currentPage == this.numberOfPagesToDisplay) {
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <button class='pag-numb' data-number="${1}">1</button>
+          <span class='dots'>...</span>
+        `);
+        for(let i = 0; i <= 2; i++) {
+          let btn = `<button class='pag-numb' data-number="${this.currentPage + i}">${this.currentPage + i}</button>`;
+          paginationElement.insertAdjacentHTML('beforebegin', btn);
         }
-        if(nextElement + 1 == this.numberOfPagesToPaginate) {
-          paginationElement.insertAdjacentHTML('beforebegin', firstBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', dots);
-          paginationElement.insertAdjacentHTML('beforebegin', beforeBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', currentButton)
-          paginationElement.insertAdjacentHTML('beforebegin', nextBtn);
-          paginationElement.insertAdjacentHTML('beforebegin', lastBtn);
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <span class='dots'>...</span>
+          <button class='pag-numb' data-number="${this.numberOfPagesToPaginate}">${this.numberOfPagesToPaginate}</button>
+        `);
+      } else if( this.currentPage == this.numberOfPagesToPaginate) {
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <button class='pag-numb' data-number="${1}">1</button>
+          <span class='dots'>...</span>
+        `);
+        for(let i = 2; i >= 0; i--) {
+          let btn = `<button class='pag-numb' data-number="${this.currentPage - i}">${this.currentPage - i}</button>`;
+          paginationElement.insertAdjacentHTML('beforebegin', btn);
         }
-      } else {
-        let beforeElement = this.currentPage - 1;
-        let bbElement = this.currentPage - 2;
-
-        let dots = `<span class='dots'>...</span>`
-        let firstBtn = `<button class='pag-numb' data-number="1">1</button>`;
-        let beforeBtn = `<button class='pag-numb' data-number="${beforeElement}">${beforeElement}</button>`;
-        let bbBtn = `<button class='pag-numb' data-number="${bbElement}">${bbElement}</button>`;
-        let currentButton = `<button class='pag-numb active' data-number="${this.currentPage}">${this.currentPage}</button>`;
-
-        paginationElement.insertAdjacentHTML('beforebegin', firstBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', dots);
-        paginationElement.insertAdjacentHTML('beforebegin', bbBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', beforeBtn);
-        paginationElement.insertAdjacentHTML('beforebegin', currentButton);
+      } else if( this.currentPage + 2 == this.numberOfPagesToPaginate) {
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <button class='pag-numb' data-number="${1}">1</button>
+          <span class='dots'>...</span>
+        `);
+        for(let i = 0; i <= 2; i++) {
+          let btn = `<button class='pag-numb' data-number="${this.currentPage + i}">${this.currentPage + i}</button>`;
+          paginationElement.insertAdjacentHTML('beforebegin', btn);
+        }
+      } else if( this.currentPage + 1 == this.numberOfPagesToPaginate) {
+        paginationElement.insertAdjacentHTML('beforebegin', `
+          <button class='pag-numb' data-number="${1}">1</button>
+          <span class='dots'>...</span>
+        `);
+        for(let i = -1; i <= 1; i++) {
+          let btn = `<button class='pag-numb' data-number="${this.currentPage + i}">${this.currentPage + i}</button>`;
+          paginationElement.insertAdjacentHTML('beforebegin', btn);
+        }
       }
     }
 
     this.paginationNumbersListeners();
+    this.toggleActiveNumber();
   }
 
   paginationArrows() {
     let btn_next = `<button class="btn-next">&gt</button>`;
     let btn_prev = `<button class="btn-prev">&lt</button>`;
-    let paginationElement = document.querySelector('.pagination-element')
 
+    let paginationElement = document.querySelector('.pagination-element')
     paginationElement.innerHTML = btn_prev + btn_next;
 
     let btnPrev = document.querySelector('.btn-prev');
@@ -126,7 +112,7 @@ class Pagination {
     let paginationNumberBtns = [...document.getElementsByClassName('pag-numb')];
 
     paginationNumberBtns.forEach(pagNum => {
-      pagNum.addEventListener('click', () => {
+      pagNum.addEventListener('click', (e) => {
         this.currentPage = parseInt(pagNum.dataset.number);
         this.paginationArrows();
         this.paginationNumbers();
@@ -134,6 +120,16 @@ class Pagination {
       })
     })
     
+  }
+
+  toggleActiveNumber(e) {
+    let paginationNumberBtns = [...document.getElementsByClassName('pag-numb')];
+
+    paginationNumberBtns.forEach(btn => {
+      if(btn.dataset.number == this.currentPage) {
+        btn.classList.add('active');
+      }
+    })
   }
 
   checkVisibility(btn_prev, btn_next) {
