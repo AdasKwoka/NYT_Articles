@@ -1,9 +1,11 @@
 class Footer {
-  constructor({ copy }) {
-    this.copy = String([...copy]);
+  constructor(copy) {
+    this.copy = copy;
+    this.mainFooter = document.querySelector('footer');
   }
 
-  init() {
+  render() {
+    this.mainFooter.innerHTML = '';
     return `<p>${this.copy}</p>`
   }
 }

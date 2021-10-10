@@ -2,42 +2,43 @@ import Articles from "./Articles.js";
 import FetchData from "./FetchData.js";
 import Footer from "./Footer.js";
 import Header from "./Header.js";
+import Observer from "./Observer.js"
 import Pagination from "./Pagination.js";
 
-
-const mainHeader = document.querySelector('header');
-const mainFooter = document.querySelector('.main-footer');
-
-let data = {
-  response: {
-    docs: []
+const observer = new Observer();
+observer.subscribe({
+  event: 'change currentPage',
+  action: (currentPage) => {
+    changeCurrentPage(currentPage);
   }
-};
-let copy = new Set();
-
-let fetchData = new FetchData();
-let dataFetched = await fetchData.init();
-
-for(let i = 0; i < dataFetched.length; i++) {
-  data.response.docs.push(...dataFetched[i].response.docs);
-  copy.add(dataFetched[i].copyright);
-}
-
-let header = new Header({
-  data
-});
-let articles = new Articles({
-  data
-});
-
-let footer = new Footer({
-  copy
 })
 
-mainHeader.insertAdjacentHTML('afterbegin', header.init());
-mainFooter.insertAdjacentHTML('afterbegin', footer.init());
-let pagination = new Pagination({ data: articles.articles } );
-pagination.init();
+const mainHeader = document.querySelector('header');
+const mainFooter = document.querySelector('footer');
+
+let pagination = new Pagination(observer);
+let serverClient = new FetchData();
+
+async function changeCurrentPage(currentPage) {
+  let dataFetched = await serverClient.fetchData(currentPage);
+
+  let copy = dataFetched.copyright;
+  let appData = dataFetched.response.docs;
+
+  let header = new Header(appData, pagination.currentPage, pagination.numberOfPagesToPaginate, pagination.recordsPerPage);
+  mainHeader.insertAdjacentHTML('afterbegin', header.render());
+
+  let articles = new Articles(appData);
+  articles.displayArticles();
+  articles.addListenersToBtns();
+
+  let footer = new Footer(copy);
+  mainFooter.insertAdjacentHTML('afterbegin', footer.render());
+  pagination.render();
+}
+
+changeCurrentPage();
+
 
 
 

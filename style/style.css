@@ -37,7 +37,7 @@ header::after {
   z-index: 1;
 }
 
-.nav-pagination {
+.number-of-pages {
   position: absolute;
   left: 0;
   right: 0;
@@ -115,7 +115,7 @@ main {
   font-size: .7rem;
 }
 
-.main-footer {
+footer {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,7 +127,7 @@ main {
   font-size: .5rem;
 }
 
-.main-footer p {
+footer p {
   margin-bottom: 0;
 }
 

@@ -22,7 +22,7 @@ class Article {
     return `${this.date.toLocaleString('en', options)}`;
   }
 
-  init() {
+  render() {
     return `
       <article class='article d-flex d-column border-bottom flex-wrap justify-content-center' data-id="${this.id}">
         <div class='article-text-wrap container row'>
