@@ -2,7 +2,7 @@ import Articles from "./Articles.js";
 import FetchData from "./FetchData.js";
 import Footer from "./Footer.js";
 import Header from "./Header.js";
-import Observer from "./Observer.js"
+import Observer from "./Observer.js";
 import Pagination from "./Pagination.js";
 
 const observer = new Observer();
@@ -11,7 +11,9 @@ observer.subscribe({
   action: (currentPage) => {
     changeCurrentPage(currentPage);
   }
-})
+});
+
+let header = null;
 
 const mainHeader = document.querySelector('header');
 const mainFooter = document.querySelector('footer');
@@ -19,16 +21,17 @@ const mainFooter = document.querySelector('footer');
 let pagination = new Pagination(observer);
 let serverClient = new FetchData();
 
-async function changeCurrentPage(currentPage) {
-  let dataFetched = await serverClient.fetchData(currentPage);
+async function init() {
+  let dataFetched = await serverClient.fetchData();
 
-  let copy = dataFetched.copyright;
   let appData = dataFetched.response.docs;
+  let copy = dataFetched.copyright;
 
-  let header = new Header(appData, pagination.currentPage, pagination.numberOfPagesToPaginate, pagination.recordsPerPage);
+  header = new Header(appData, pagination.currentPage, pagination.numberOfPagesToPaginate, pagination.recordsPerPage);
   mainHeader.insertAdjacentHTML('afterbegin', header.render());
 
   let articles = new Articles(appData);
+  
   articles.displayArticles();
   articles.addListenersToBtns();
 
@@ -37,7 +40,22 @@ async function changeCurrentPage(currentPage) {
   pagination.render();
 }
 
-changeCurrentPage();
+async function changeCurrentPage(currentPage) {
+  let dataFetched = await serverClient.fetchData(currentPage);
+  
+  let appData = dataFetched.response.docs;
+  
+  header.updateHeaderInfo(currentPage, appData);
+
+  let articles = new Articles(appData);
+
+  articles.displayArticles();
+  articles.addListenersToBtns();
+
+  pagination.render();
+}
+
+init();
 
 
 

@@ -17,9 +17,9 @@ class Article {
       month: 'long',
       day: 'numeric',
       year: 'numeric'
-    }
+    };
 
-    return `${this.date.toLocaleString('en', options)}`;
+    return this.date.toLocaleString('en', options);
   }
 
   render() {
@@ -47,8 +47,8 @@ class Article {
           </div>      
         </div>
       </article>
-    `
-  }
+    `;
+  };
 }
 
 export default Article;

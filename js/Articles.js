@@ -34,15 +34,20 @@ class Articles {
         <h1 class="header-main-articles w-100vw bg-dark text-light text-center py-1">Articles</h1>
         <div class='articles-wrapper'></div>
         <div class='pagination-element'></div>
-    `
+    `;
+
+    let articlesAsString = '';
+
     this.articles.forEach(article => {
-      document.querySelector('.articles-wrapper').innerHTML += article;     
-    })
+      articlesAsString += article;     
+    });
+
+    document.querySelector('.articles-wrapper').innerHTML = articlesAsString;
   }
 
   addListenersToBtns() {
     let toggleBtns = [...document.getElementsByClassName('article-add-info')];
-    toggleBtns.forEach(btn => btn.addEventListener('click', e => this.toggleVisibility(e)))   
+    toggleBtns.forEach(btn => btn.addEventListener('click', e => this.toggleVisibility(e)));
   }
 
   toggleVisibility(e) {
@@ -50,7 +55,7 @@ class Articles {
     let article = document.querySelector(`article[data-id='${index}']`);
     let additionals = article.querySelector('.article-additionals');
     additionals.classList.toggle('disable');
-    e.target.textContent = !additionals.classList.contains('disable') ? 'Close' : 'Show info'
+    e.target.textContent = additionals.classList.contains('disable') ? 'Show info' : 'Close';
   }
 }
 

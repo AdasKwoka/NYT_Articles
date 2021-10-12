@@ -6,8 +6,7 @@ class Pagination {
     this.recordsPerPage = 10;
     this.numberOfPagesToPaginate = 10;
     this.numberOfPagesToDisplay = 3;
-    this.main = document.querySelector('main')
-    this.newData = new FetchData();
+    this.main = document.querySelector('main');
     this.observer = observer;
   }
 
@@ -93,19 +92,15 @@ class Pagination {
     let btn_next = `<button class="btn-next">&gt</button>`;
     let btn_prev = `<button class="btn-prev">&lt</button>`;
 
-    let paginationElement = document.querySelector('.pagination-element')
+    let paginationElement = document.querySelector('.pagination-element');
     paginationElement.innerHTML = btn_prev + btn_next;
 
     let btnPrev = document.querySelector('.btn-prev');
     let btnNext = document.querySelector('.btn-next');
 
-    this.paginationArrowsListeners(btnNext, btnPrev);
+    btnNext.addEventListener('click', this.nextPage);
+    btnPrev.addEventListener('click', this.prevPage);
     this.checkVisibility(btnPrev, btnNext);
-  }
-
-  paginationArrowsListeners(btn_next, btn_prev) {
-      btn_next.addEventListener('click', this.nextPage);
-      btn_prev.addEventListener('click', this.prevPage);
   }
 
   paginationNumbersListeners() {
@@ -117,9 +112,8 @@ class Pagination {
         this.paginationArrows();
         this.paginationNumbers();
         this.observer.publish('change currentPage', this.currentPage);
-      })
-    })
-    
+      });
+    }); 
   }
 
   toggleActiveNumber(e) {
@@ -128,14 +122,12 @@ class Pagination {
     paginationNumberBtns.forEach(btn => {
       if(btn.dataset.number == this.currentPage) {
         btn.classList.add('active');
-      }
-    })
+      };
+    });
   }
 
   checkVisibility(btn_prev, btn_next) {
-
     this.currentPage <= 1 ? btn_prev.style.visibility = "hidden" : btn_prev.style.visibility = "visible";
-
     this.currentPage >= this.numberOfPagesToPaginate ? btn_next.style.visibility = "hidden" : btn_next.style.visibility = "visible";
   }
 
