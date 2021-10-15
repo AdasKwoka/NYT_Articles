@@ -34,7 +34,7 @@ class Article {
             <a class='article-header fs-6 fw-bold text-decoration-none text-primary text-start text-wrap d-none pe-0 col-9 d-md-block' href='${this.url_website}' target='_blank'><span>${this.title}<span></a>
             <p class='article-description mb-1'>${this.lead_paragraph}</p>
             <p class='article-date mb-1 text-end'>${this.createDate()}</p>
-            <button type="button" class="article-btn article-add-info btn btn-primary btn-sm mx-auto d-block mb-2 mb-sm-4">Show info</button>
+            <button type="button" class="article-btn article-add-info btn btn-primary btn-sm float-end d-block mt-2 mb-2 mb-sm-4">Show info</button>
           </div>      
         </div>
         <div class='article-additionals w-100 row disable'>

@@ -30,12 +30,6 @@ class Articles {
   }
 
   displayArticles() {
-    this.main.innerHTML = `
-        <h1 class="header-main-articles w-100vw bg-dark text-light text-center py-1">Articles</h1>
-        <div class='articles-wrapper'></div>
-        <div class='pagination-element'></div>
-    `;
-
     let articlesAsString = '';
 
     this.articles.forEach(article => {
@@ -55,7 +49,7 @@ class Articles {
     let article = document.querySelector(`article[data-id='${index}']`);
     let additionals = article.querySelector('.article-additionals');
     additionals.classList.toggle('disable');
-    e.target.textContent = additionals.classList.contains('disable') ? 'Show info' : 'Close';
+    e.target.textContent = additionals.classList.contains('disable') ? 'Show info' : 'Hide info';
   }
 }
 
