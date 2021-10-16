@@ -8,7 +8,7 @@ class Article {
     this.url_big = url_big;
     this.url_website = url_website;
     this.url_small = url_small;
-    this.id = Date.now() + Math.floor(Math.random() * 100);
+    this.id = Date.now() + Math.floor(Math.random() * 1234);
   }
 
   createDate() {
@@ -25,12 +25,12 @@ class Article {
   render() {
     return `
       <article class='article d-flex d-column border-bottom flex-wrap justify-content-center' data-id="${this.id}">
-        <div class='article-text-wrap container row'>
-          <div class='article-img-wrap overflow-hidden col-3 ps-0 pe-0 mt-2 mb-md-3'>
+        <div class='article-text-wrap row'>
+          <div class='article-img-wrap overflow-hidden col-3 mt-2 mb-md-3'>
             <img class='mw-100 mh-100' src='${this.url_small}' alt='article-main-image'/>
           </div>
           <a class='article-header fs-6 fw-bold text-decoration-none text-primary text-start text-wrap d-block ps-2 pe-0 col-9 mt-2 d-md-flex justify-content-md-center align-items-md-center d-md-none' href='${this.url_website}' target='_blank'><span>${this.title}<span></a>  
-          <div class='article-text mt-sm-3 col-12 ps-0 pe-0 me-0 ms-0 ps-md-2 col-md-9'>
+          <div class='article-text mt-sm-3 col-12 ps-md-2 col-md-9'>
             <a class='article-header fs-6 fw-bold text-decoration-none text-primary text-start text-wrap d-none pe-0 col-9 d-md-block' href='${this.url_website}' target='_blank'><span>${this.title}<span></a>
             <p class='article-description mb-1'>${this.lead_paragraph}</p>
             <p class='article-date mb-1 text-end'>${this.createDate()}</p>

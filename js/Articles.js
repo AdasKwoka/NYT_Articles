@@ -40,8 +40,11 @@ class Articles {
   }
 
   addListenersToBtns() {
-    let toggleBtns = [...document.getElementsByClassName('article-add-info')];
-    toggleBtns.forEach(btn => btn.addEventListener('click', e => this.toggleVisibility(e)));
+    document.addEventListener('click', (e) => {
+      if(e.target && e.target.className.includes('article-btn')) {
+        this.toggleVisibility(e)
+      }
+    });
   }
 
   toggleVisibility(e) {

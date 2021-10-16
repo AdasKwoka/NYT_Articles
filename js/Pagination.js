@@ -1,5 +1,3 @@
-import FetchData from "./FetchData.js";
-
 class Pagination {
   constructor(observer) {
     this.currentPage = 1;
@@ -12,6 +10,8 @@ class Pagination {
 
   paginationNumbers() {
     let paginationElement = document.querySelector('.btn-next');
+
+    this.removeOldNumbers();
 
     if(this.numberOfPagesToPaginate <= 4) {
       for(let i = 1; i <= 4; i++) {
@@ -84,57 +84,46 @@ class Pagination {
       }
     }
 
-    this.paginationNumbersListeners();
+    this.checkVisibility();
     this.toggleActiveNumber();
   }
 
-  paginationArrows() {
-    let btn_next = `<button class="btn-next">&gt</button>`;
-    let btn_prev = `<button class="btn-prev">&lt</button>`;
-
-    let paginationElement = document.querySelector('.pagination-element');
-    paginationElement.innerHTML = btn_prev + btn_next;
-
+  addListenersToPaginationButtons() {
     let btnPrev = document.querySelector('.btn-prev');
     let btnNext = document.querySelector('.btn-next');
 
     btnNext.addEventListener('click', this.nextPage);
     btnPrev.addEventListener('click', this.prevPage);
-    this.checkVisibility(btnPrev, btnNext);
-  }
 
-  paginationNumbersListeners() {
-    let paginationNumberBtns = [...document.getElementsByClassName('pag-numb')];
-
-    paginationNumberBtns.forEach(pagNum => {
-      pagNum.addEventListener('click', (e) => {
-        this.currentPage = parseInt(pagNum.dataset.number);
-        this.paginationArrows();
-        this.paginationNumbers();
+    document.addEventListener('click', (e) => {
+      if(e.target && e.target.className.includes('pag-numb')) {
+        this.currentPage = parseInt(e.target.dataset.number);
+        this.checkVisibility();
         this.observer.publish('change currentPage', this.currentPage);
-      });
-    }); 
+      }
+    })
   }
 
-  toggleActiveNumber(e) {
-    let paginationNumberBtns = [...document.getElementsByClassName('pag-numb')];
+  checkVisibility() {
+    let btnPrev = document.querySelector('.btn-prev');
+    let btnNext = document.querySelector('.btn-next');
 
-    paginationNumberBtns.forEach(btn => {
-      if(btn.dataset.number == this.currentPage) {
-        btn.classList.add('active');
-      };
-    });
-  }
+    if(this.currentPage <= 1) {
+      btnPrev.disabled = true;
+    } else {
+      btnPrev.disabled = false;
+    }
 
-  checkVisibility(btn_prev, btn_next) {
-    this.currentPage <= 1 ? btn_prev.style.visibility = "hidden" : btn_prev.style.visibility = "visible";
-    this.currentPage >= this.numberOfPagesToPaginate ? btn_next.style.visibility = "hidden" : btn_next.style.visibility = "visible";
+    if(this.currentPage >= this.numberOfPagesToPaginate) {
+      btnNext.disabled = true;
+    } else {
+      btnNext.disabled = false;
+    }
   }
 
   prevPage = ()  => {
     if(this.currentPage > 1) {
       this.currentPage--;
-      this.paginationArrows();
       this.paginationNumbers();
       this.observer.publish('change currentPage', this.currentPage);
     }
@@ -143,16 +132,38 @@ class Pagination {
   nextPage = () => {
     if(this.currentPage < this.numberOfPagesToPaginate) {
       this.currentPage++;
-      this.paginationArrows();
       this.paginationNumbers();
       this.observer.publish('change currentPage', this.currentPage);
 
     }
   }
 
+  removeOldNumbers() {
+    let paginationNumberNodes = [...document.querySelectorAll('.pag-numb')];
+    let paginationDotsNodes = [...document.querySelectorAll('.dots')];
+
+    if(paginationNumberNodes.length > 0) {
+      for(let i = 0; i < paginationNumberNodes.length; i++) {
+        document.querySelector('.pagination-element').removeChild(paginationNumberNodes[i]);
+      }
+      for(let i = 0; i < paginationDotsNodes.length; i++) {
+        document.querySelector('.pagination-element').removeChild(paginationDotsNodes[i]);
+      }
+    }
+  }
+
   render() {
-    this.paginationArrows();
     this.paginationNumbers();
+  }
+
+  toggleActiveNumber() {
+    let paginationNumberBtns = [...document.getElementsByClassName('pag-numb')];
+
+    paginationNumberBtns.forEach(btn => {
+      if(btn.dataset.number == this.currentPage) {
+        btn.classList.add('active');
+      };
+    });
   }
 }
 

@@ -49,11 +49,6 @@ main {
   flex-grow: 1;
 }
 
-.articles-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
 .pagination-element {
   display: flex;
   justify-content: center;
@@ -133,4 +128,9 @@ footer p {
 
 .disable {
   display: none !important;
+}
+
+.btn-next:disabled,
+.btn-prev:disabled {
+  opacity: .5;
 }

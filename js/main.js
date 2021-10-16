@@ -38,6 +38,7 @@ async function init() {
   let footer = new Footer(copy);
   mainFooter.insertAdjacentHTML('afterbegin', footer.render());
   pagination.render();
+  pagination.addListenersToPaginationButtons();
 }
 
 async function changeCurrentPage(currentPage) {
@@ -50,7 +51,6 @@ async function changeCurrentPage(currentPage) {
   let articles = new Articles(appData);
 
   articles.displayArticles();
-  articles.addListenersToBtns();
 
   pagination.render();
 }
